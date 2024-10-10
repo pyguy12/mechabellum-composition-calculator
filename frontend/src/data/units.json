@@ -1,29 +1,229 @@
 {
     "units": [
-        { "id": 1, "name": "Farseer", "image": "farseer.jpg" },
-        { "id": 2, "name": "Tarantula", "image": "tarantula.jpg" },
-        { "id": 3, "name": "Sandworm", "image": "sandworm.jpg" },
-        { "id": 4, "name": "Fire Badger", "image": "fire-badger.jpg" },
-        { "id": 5, "name": "Typhoon", "image": "typhoon.jpg" },
-        { "id": 6, "name": "Sabertooth", "image": "sabertooth.jpg" },
-        { "id": 7, "name": "Scorpion", "image": "scorpion.jpg" },
-        { "id": 8, "name": "Wraith", "image": "wraith.jpg" },
-        { "id": 9, "name": "War Factory", "image": "war-factory.jpg" },
-        { "id": 10, "name": "Phoenix", "image": "phoenix.jpg" },
-        { "id": 11, "name": "Arclight", "image": "arclight.jpg" },
-        { "id": 12, "name": "Hacker", "image": "hacker.jpg" },
-        { "id": 13, "name": "Sledgehammer", "image": "sledgehammer.jpg" },
-        { "id": 14, "name": "Stormcaller", "image": "stormcaller.jpg" },
-        { "id": 15, "name": "Overlord", "image": "overlord.jpg" },
-        { "id": 16, "name": "Crawler", "image": "crawler.jpg" },
-        { "id": 17, "name": "Fang", "image": "fang.jpg" },
-        { "id": 18, "name": "Steel Ball", "image": "steel-ball.jpg" },
-        { "id": 19, "name": "Mustang", "image": "mustang.jpg" },
-        { "id": 20, "name": "Wasp", "image": "wasp.jpg" },
-        { "id": 21, "name": "Rhino", "image": "rhino.jpg" },
-        { "id": 22, "name": "Melting Point", "image": "melting-point.jpg" },
-        { "id": 23, "name": "Marksman", "image": "marksman.jpg" },
-        { "id": 24, "name": "Fortress", "image": "fortress.jpg" },
-        { "id": 25, "name": "Vulcan", "image": "vulcan.jpg" }
+        {
+            "id": 1,
+            "name": "Farseer",
+            "image": "farseer.jpg",
+            "counters": {
+                "effectiveAgainst": [20, 8, 13, 18],
+                "counteredBy": [24, 21, 9]
+            }
+        },
+        {
+            "id": 2,
+            "name": "Tarantula",
+            "image": "tarantula.jpg",
+            "counters": {
+                "effectiveAgainst": [17, 16, 19, 20],
+                "counteredBy": [24, 12, 23, 22, 15, 10, 21, 6, 7, 3, 18, 9, 14]
+            }
+        },
+        {
+            "id": 3,
+            "name": "Sandworm",
+            "image": "sandworm.jpg",
+            "counters": {
+                "effectiveAgainst": [4, 11, 23, 21, 6, 13, 18, 5, 25, 2, 19],
+                "counteredBy": [9, 10, 15, 18, 22, 21]
+            }
+        },
+        {
+            "id": 4,
+            "name": "Fire Badger",
+            "image": "fire-badger.jpg",
+            "counters": {
+                "effectiveAgainst": [16, 17, 19],
+                "counteredBy": [6, 24, 12, 23, 15, 10, 21, 7, 9]
+            }
+        },
+        {
+            "id": 5,
+            "name": "Typhoon",
+            "image": "typhoon.jpg",
+            "counters": {
+                "effectiveAgainst": [16, 17, 20, 19],
+                "counteredBy": [24, 23, 22, 15, 10, 21, 6, 7, 18, 9]
+            }
+        },
+        {
+            "id": 6,
+            "name": "Sabertooth",
+            "image": "sabertooth.jpg",
+            "counters": {
+                "effectiveAgainst": [11, 18, 14, 4, 13],
+                "counteredBy": [24, 12, 22, 15, 10, 21]
+            }
+        },
+        {
+            "id": 7,
+            "name": "Scorpion",
+            "image": "scorpion.jpg",
+            "counters": {
+                "effectiveAgainst": [13, 18, 11, 9],
+                "counteredBy": [23, 10, 14, 15]
+            }
+        },
+        {
+            "id": 8,
+            "name": "Wraith",
+            "image": "wraith.jpg",
+            "counters": {
+                "effectiveAgainst": [16, 17, 13, 18, 20],
+                "counteredBy": [15, 10, 22, 23]
+            }
+        },
+        {
+            "id": 9,
+            "name": "War Factory",
+            "image": "war-factory.jpg",
+            "counters": {
+                "effectiveAgainst": [11, 23, 21, 13, 18, 25, 14, 15, 4, 5, 6],
+                "counteredBy": [22, 7]
+            }
+        },
+        {
+            "id": 10,
+            "name": "Phoenix",
+            "image": "phoenix.jpg",
+            "counters": {
+                "effectiveAgainst": [11, 15, 21, 14, 25, 5, 6, 4, 7],
+                "counteredBy": [20, 23, 19, 17, 24]
+            }
+        },
+        {
+            "id": 11,
+            "name": "Arclight",
+            "image": "arclight.jpg",
+            "counters": {
+                "effectiveAgainst": [16, 17, 19, 18, 13, 4, 5],
+                "counteredBy": [23, 14, 21, 15, 24, 10, 8, 9, 7, 6]
+            }
+        },
+        {
+            "id": 12,
+            "name": "Hacker",
+            "image": "hacker.jpg",
+            "counters": {
+                "effectiveAgainst": [18, 13, 21, 7, 22, 4, 11],
+                "counteredBy": [15, 24, 14, 16, 17, 10, 8, 9]
+            }
+        },
+        {
+            "id": 13,
+            "name": "Sledgehammer",
+            "image": "sledgehammer.jpg",
+            "counters": {
+                "effectiveAgainst": [16, 19, 14],
+                "counteredBy": [12, 24, 10, 15, 7, 9, 23, 21]
+            }
+        },
+        {
+            "id": 14,
+            "name": "Stormcaller",
+            "image": "stormcaller.jpg",
+            "counters": {
+                "effectiveAgainst": [11, 17, 22, 25, 19, 23, 24, 7, 5],
+                "counteredBy": [15, 10, 14, 16, 13, 21, 9, 6]
+            }
+        },
+        {
+            "id": 15,
+            "name": "Overlord",
+            "image": "overlord.jpg",
+            "counters": {
+                "effectiveAgainst": [21, 18, 13, 14, 25, 11, 12, 7, 4, 6, 5, 9, 8],
+                "counteredBy": [23, 22, 10, 19, 24]
+            }
+        },
+        {
+            "id": 16,
+            "name": "Crawler",
+            "image": "crawler.jpg",
+            "counters": {
+                "effectiveAgainst": [17, 12, 23, 22, 18, 14, 6, 7],
+                "counteredBy": [11, 25, 21, 8, 13, 4, 5, 2]
+            }
+        },
+        {
+            "id": 17,
+            "name": "Fang",
+            "image": "fang.jpg",
+            "counters": {
+                "effectiveAgainst": [],
+                "counteredBy": [16, 19, 14, 25, 5, 2]
+            }
+        },
+        {
+            "id": 18,
+            "name": "Steel Ball",
+            "image": "steel-ball.jpg",
+            "counters": {
+                "effectiveAgainst": [24, 21, 22, 25, 9, 4, 5],
+                "counteredBy": [16, 12, 10, 15, 14, 7]
+            }
+        },
+        {
+            "id": 19,
+            "name": "Mustang",
+            "image": "mustang.jpg",
+            "counters": {
+                "effectiveAgainst": [17, 10, 20, 16],
+                "counteredBy": [11, 13, 14, 25, 24, 21, 4, 5, 2]
+            }
+        },
+        {
+            "id": 20,
+            "name": "Wasp",
+            "image": "wasp.jpg",
+            "counters": {
+                "effectiveAgainst": [23, 10, 22, 25, 15],
+                "counteredBy": [19, 24, 17, 8, 5, 2]
+            }
+        },
+        {
+            "id": 21,
+            "name": "Rhino",
+            "image": "rhino.jpg",
+            "counters": {
+                "effectiveAgainst": [11, 25, 14, 16, 13, 4, 23, 19, 5],
+                "counteredBy": [24, 12, 22, 18, 10, 15, 9]
+            }
+        },
+        {
+            "id": 22,
+            "name": "Melting Point",
+            "image": "melting-point.jpg",
+            "counters": {
+                "effectiveAgainst": [24, 21, 25, 8, 9, 7, 5],
+                "counteredBy": [18, 16, 23, 10, 14, 12]
+            }
+        },
+        {
+            "id": 23,
+            "name": "Marksman",
+            "image": "marksman.jpg",
+            "counters": {
+                "effectiveAgainst": [10, 15, 25, 11, 13],
+                "counteredBy": [16, 17, 14, 20, 24, 21]
+            }
+        },
+        {
+            "id": 24,
+            "name": "Fortress",
+            "image": "fortress.jpg",
+            "counters": {
+                "effectiveAgainst": [11, 21, 13, 25, 20, 12, 15, 10, 5, 7],
+                "counteredBy": [16, 22, 15, 14, 18]
+            }
+        },
+        {
+            "id": 25,
+            "name": "Vulcan",
+            "image": "vulcan.jpg",
+            "counters": {
+                "effectiveAgainst": [16, 17, 19],
+                "counteredBy": [24, 22, 15, 10, 21, 14]
+            }
+        }
     ]
 }

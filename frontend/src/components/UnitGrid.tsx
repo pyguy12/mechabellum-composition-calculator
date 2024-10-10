@@ -12,6 +12,7 @@ interface UnitGridProps {
 const UnitGrid: React.FC<UnitGridProps> = ({ units }) => {
     const dispatch = useDispatch();
     const selectedUnits = useSelector((state: RootState) => state.units.selectedUnits);
+    const allUnits = useSelector((state: RootState) => state.units.allUnits);
 
     return (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
@@ -21,6 +22,7 @@ const UnitGrid: React.FC<UnitGridProps> = ({ units }) => {
                     unit={unit}
                     isSelected={selectedUnits.includes(unit.id)}
                     onClick={() => dispatch(toggleUnit(unit.id))}
+                    allUnits={allUnits}
                 />
             ))}
         </div>
