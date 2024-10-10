@@ -1,4 +1,3 @@
-// src/redux/store/unitsSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Unit } from '../../types';
 import unitsData from '../../data/units.json';
@@ -30,8 +29,11 @@ const unitsSlice = createSlice({
         setSearchQuery: (state, action: PayloadAction<string>) => {
             state.searchQuery = action.payload;
         },
+        resetSelectedUnits: (state) => {
+            state.selectedUnits = [];
+        },
     },
 });
 
-export const { toggleUnit, setSearchQuery } = unitsSlice.actions;
+export const { toggleUnit, setSearchQuery, resetSelectedUnits } = unitsSlice.actions;
 export default unitsSlice.reducer;

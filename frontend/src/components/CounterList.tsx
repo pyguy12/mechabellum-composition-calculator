@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { Unit, UnitType } from '../types';
+import { Unit } from '../types';
 
 const CounterList: React.FC = () => {
     const { allUnits, selectedUnits } = useSelector((state: RootState) => state.units);
@@ -31,6 +31,7 @@ const CounterList: React.FC = () => {
 
     const counters = calculateCounters(selectedUnits, allUnits);
     const sortedCounters = Object.entries(counters)
+        .filter(([, { counters, effectiveAgainst }]) => counters.length > 0 || effectiveAgainst.length > 0)
         .sort(([, a], [, b]) => {
             // Sort by number of units it's effective against, then by number of counters
             if (b.effectiveAgainst.length !== a.effectiveAgainst.length) {
@@ -46,45 +47,49 @@ const CounterList: React.FC = () => {
 
     return (
         <div className="bg-gray-800 p-4 rounded-lg">
-            <h3 className="text-xl font-bold mb-4">Top 5 Units</h3>
-            {sortedCounters.length > 0 ? (
-                <ul className="space-y-4">
-                    {sortedCounters.map(([unitId, { counters: counteredUnits, effectiveAgainst }]) => {
-                        const unit = getUnitById(Number(unitId));
-                        if (!unit) return null;
-                        return (
-                            <li key={unitId} className="border-b border-gray-700 pb-4">
-                                <div className="flex justify-between items-center mb-2">
-                                    <span className="text-lg font-semibold">{unit.name}</span>
-                                    <div className="flex space-x-2">
-                                        <span className="bg-green-600 px-2 py-1 rounded">
-                                            Effective: {effectiveAgainst.length}
-                                        </span>
-                                        <span className="bg-red-600 px-2 py-1 rounded">
-                                            Counters: {counteredUnits.length}
-                                        </span>
+            <h3 className="text-xl font-bold mb-4">Best Units vs. Enemy Army</h3>
+            {selectedUnits.length > 0 ? (
+                sortedCounters.length > 0 ? (
+                    <ul className="space-y-4">
+                        {sortedCounters.map(([unitId, { counters: counteredUnits, effectiveAgainst }]) => {
+                            const unit = getUnitById(Number(unitId));
+                            if (!unit) return null;
+                            return (
+                                <li key={unitId} className="border-b border-gray-700 pb-4">
+                                    <div className="flex justify-between items-center mb-2">
+                                        <span className="text-lg font-semibold">{unit.name}</span>
+                                        <div className="flex space-x-2">
+                                            <span className="bg-green-600 px-2 py-1 rounded">
+                                                Effective: {effectiveAgainst.length}
+                                            </span>
+                                            <span className="bg-red-600 px-2 py-1 rounded">
+                                                Counters: {counteredUnits.length}
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="text-sm">
-                                    <p className="mb-1">
-                                        <span className="font-medium text-green-400">Effective against: </span>
-                                        {effectiveAgainst.length > 0
-                                            ? effectiveAgainst.join(', ')
-                                            : 'None of the selected units'}
-                                    </p>
-                                    <p>
-                                        <span className="font-medium text-red-400">Counters: </span>
-                                        {counteredUnits.length > 0
-                                            ? counteredUnits.join(', ')
-                                            : 'None of the selected units'}
-                                    </p>
-                                </div>
-                            </li>
-                        );
-                    })}
-                </ul>
+                                    <div className="text-sm">
+                                        <p className="mb-1">
+                                            <span className="font-medium text-green-400">Effective against: </span>
+                                            {effectiveAgainst.length > 0
+                                                ? effectiveAgainst.join(', ')
+                                                : 'None of the selected units'}
+                                        </p>
+                                        <p>
+                                            <span className="font-medium text-red-400">Counters: </span>
+                                            {counteredUnits.length > 0
+                                                ? counteredUnits.join(', ')
+                                                : 'None of the selected units'}
+                                        </p>
+                                    </div>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                ) : (
+                    <p className="text-gray-400">No effective counters found for the selected units.</p>
+                )
             ) : (
-                <p>No counters to display. Select enemy units to see counters.</p>
+                <p className="text-gray-400">Select enemy units to see suggested counters.</p>
             )}
         </div>
     );
