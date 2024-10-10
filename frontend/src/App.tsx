@@ -3,11 +3,9 @@ import Header from './components/Header';
 import UnitGrid from './components/UnitGrid';
 import CounterList from './components/CounterList';
 import { Unit } from './types';
+import unitsData from './data/units.json';
 
-const units: Unit[] = [
-    { id: 1, name: 'Farseer', image: 'farseer.jpg' },
-    // Add more units as needed
-];
+const units: Unit[] = unitsData.units;
 
 function App() {
     const [selectedUnits, setSelectedUnits] = useState<number[]>([]);
