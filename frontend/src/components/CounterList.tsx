@@ -46,7 +46,7 @@ const CounterList: React.FC = () => {
 
     return (
         <div className="bg-gray-800 p-4 rounded-lg">
-            <h3 className="text-xl font-bold mb-4">Top 5 Counters</h3>
+            <h3 className="text-xl font-bold mb-4">Top 5 Units</h3>
             {sortedCounters.length > 0 ? (
                 <ul className="space-y-4">
                     {sortedCounters.map(([unitId, { counters: counteredUnits, effectiveAgainst }]) => {

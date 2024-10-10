@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { Unit, UnitType } from '../types';
-import { Shield, Sword } from 'lucide-react';
+import React from 'react';
+import { Unit } from '../types';
 
 interface UnitCardProps {
     unit: Unit;
@@ -10,17 +9,9 @@ interface UnitCardProps {
 }
 
 const UnitCard: React.FC<UnitCardProps> = ({ unit, isSelected, onClick, allUnits }) => {
-    const [isHovered, setIsHovered] = useState(false);
-
-    const getUnitNameById = (id: UnitType): string => {
-        return allUnits.find((u) => u.id === id)?.name || 'Unknown';
-    };
-
     return (
         <div
             onClick={onClick}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
             className={`
                 relative cursor-pointer transition-all duration-300 ease-in-out
                 transform hover:scale-105 rounded-lg overflow-hidden
@@ -53,38 +44,6 @@ const UnitCard: React.FC<UnitCardProps> = ({ unit, isSelected, onClick, allUnits
                     >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                </div>
-            )}
-            {isHovered && unit.counters && (
-                <div className="absolute inset-0 bg-black/90 p-4 overflow-y-auto">
-                    <div className="text-white space-y-4">
-                        <div>
-                            <div className="flex items-center mb-2">
-                                <Sword className="w-5 h-5 mr-2 text-green-500" />
-                                <p className="font-bold text-green-500">Effective against:</p>
-                            </div>
-                            <ul className="list-disc list-inside grid grid-cols-2 gap-x-2 text-sm">
-                                {unit.counters.effectiveAgainst.map((id) => (
-                                    <li key={id} className="truncate">
-                                        {getUnitNameById(id)}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div>
-                            <div className="flex items-center mb-2">
-                                <Shield className="w-5 h-5 mr-2 text-red-500" />
-                                <p className="font-bold text-red-500">Countered by:</p>
-                            </div>
-                            <ul className="list-disc list-inside grid grid-cols-2 gap-x-2 text-sm">
-                                {unit.counters.counteredBy.map((id) => (
-                                    <li key={id} className="truncate">
-                                        {getUnitNameById(id)}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             )}
         </div>

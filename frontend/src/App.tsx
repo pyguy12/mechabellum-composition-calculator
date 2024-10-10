@@ -14,13 +14,17 @@ function App() {
     return (
         <div className="min-h-screen bg-gray-900 text-white">
             <Header />
-            <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-                <div className="px-4 py-6 sm:px-0">
-                    <h2 className="text-2xl font-semibold mb-4">Select Enemy Units</h2>
-                    <SearchBar />
-                    <UnitGrid units={filteredUnits} />
-                    <h2 className="text-2xl font-semibold mb-4 mt-8">Suggested Counters</h2>
-                    <CounterList />
+            <main className="max-w-screen-2xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div className="flex flex-col md:flex-row md:space-x-6">
+                    <div className="md:w-2/3 mb-6 md:mb-0">
+                        <h2 className="text-2xl font-semibold mb-4">Select Enemy Units</h2>
+                        <SearchBar />
+                        <UnitGrid units={filteredUnits} />
+                    </div>
+                    <div className="md:w-1/3">
+                        <h2 className="text-2xl font-semibold mb-4">Suggested Units</h2>
+                        <CounterList />
+                    </div>
                 </div>
             </main>
         </div>
