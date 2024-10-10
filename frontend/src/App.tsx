@@ -5,6 +5,7 @@ import UnitGrid from './components/UnitGrid';
 import CounterList from './components/CounterList';
 import SearchBar from './components/SearchBar';
 import ResetButton from './components/ResetButton';
+import EnemyCompositionBar from './components/EnemyCompositionBar';
 import { RootState } from './redux/store';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                             <h2 className="text-2xl font-semibold">Select Enemy Units</h2>
                             <ResetButton />
                         </div>
+                        <EnemyCompositionBar />
                         <SearchBar />
                         <UnitGrid units={filteredUnits} />
                     </div>

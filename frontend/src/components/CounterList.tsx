@@ -7,21 +7,41 @@ const CounterList: React.FC = () => {
     const { allUnits, selectedUnits } = useSelector((state: RootState) => state.units);
 
     const calculateCounters = (
-        selectedUnits: number[],
+        selectedUnits: { id: number; quantity: number }[],
         allUnits: Unit[]
-    ): { [key: number]: { counters: string[]; effectiveAgainst: string[] } } => {
-        const counters: { [key: number]: { counters: string[]; effectiveAgainst: string[] } } = {};
-        const selectedUnitObjects = allUnits.filter((unit) => selectedUnits.includes(unit.id));
+    ): {
+        [key: number]: {
+            countersEnemy: { name: string; count: number }[];
+            counteredByEnemy: { name: string; count: number }[];
+        };
+    } => {
+        const counters: {
+            [key: number]: {
+                countersEnemy: { name: string; count: number }[];
+                counteredByEnemy: { name: string; count: number }[];
+            };
+        } = {};
+
+        const selectedUnitObjects = selectedUnits.map(({ id, quantity }) => ({
+            unit: allUnits.find((u) => u.id === id)!,
+            quantity,
+        }));
 
         allUnits.forEach((unit) => {
-            counters[unit.id] = { counters: [], effectiveAgainst: [] };
+            counters[unit.id] = {
+                countersEnemy: [],
+                counteredByEnemy: [],
+            };
 
-            selectedUnitObjects.forEach((selectedUnit) => {
+            selectedUnitObjects.forEach(({ unit: selectedUnit, quantity }) => {
+                // Check if this unit counters the selected enemy unit
                 if (selectedUnit.counters?.counteredBy.includes(unit.id)) {
-                    counters[unit.id].counters.push(selectedUnit.name);
+                    counters[unit.id].countersEnemy.push({ name: selectedUnit.name, count: quantity });
                 }
-                if (unit.counters?.effectiveAgainst.includes(selectedUnit.id)) {
-                    counters[unit.id].effectiveAgainst.push(selectedUnit.name);
+
+                // Check if this unit is countered by the selected enemy unit
+                if (unit.counters?.counteredBy.includes(selectedUnit.id)) {
+                    counters[unit.id].counteredByEnemy.push({ name: selectedUnit.name, count: quantity });
                 }
             });
         });
@@ -31,13 +51,19 @@ const CounterList: React.FC = () => {
 
     const counters = calculateCounters(selectedUnits, allUnits);
     const sortedCounters = Object.entries(counters)
-        .filter(([, { counters, effectiveAgainst }]) => counters.length > 0 || effectiveAgainst.length > 0)
+        .filter(([, data]) => data.countersEnemy.length > 0 || data.counteredByEnemy.length > 0)
         .sort(([, a], [, b]) => {
-            // Sort by number of units it's effective against, then by number of counters
-            if (b.effectiveAgainst.length !== a.effectiveAgainst.length) {
-                return b.effectiveAgainst.length - a.effectiveAgainst.length;
+            // First, sort by the number of enemy units this unit counters
+            const aCountersEnemyCount = a.countersEnemy.reduce((sum, { count }) => sum + count, 0);
+            const bCountersEnemyCount = b.countersEnemy.reduce((sum, { count }) => sum + count, 0);
+            if (bCountersEnemyCount !== aCountersEnemyCount) {
+                return bCountersEnemyCount - aCountersEnemyCount;
             }
-            return b.counters.length - a.counters.length;
+
+            // If equal, sort by the least amount of enemy units that counter this unit
+            const aCounteredByCount = a.counteredByEnemy.reduce((sum, { count }) => sum + count, 0);
+            const bCounteredByCount = b.counteredByEnemy.reduce((sum, { count }) => sum + count, 0);
+            return aCounteredByCount - bCounteredByCount;
         })
         .slice(0, 5);
 
@@ -51,34 +77,40 @@ const CounterList: React.FC = () => {
             {selectedUnits.length > 0 ? (
                 sortedCounters.length > 0 ? (
                     <ul className="space-y-4">
-                        {sortedCounters.map(([unitId, { counters: counteredUnits, effectiveAgainst }]) => {
+                        {sortedCounters.map(([unitId, data]) => {
                             const unit = getUnitById(Number(unitId));
                             if (!unit) return null;
+                            const countersEnemyCount = data.countersEnemy.reduce((sum, { count }) => sum + count, 0);
+                            const counteredByCount = data.counteredByEnemy.reduce((sum, { count }) => sum + count, 0);
                             return (
                                 <li key={unitId} className="border-b border-gray-700 pb-4">
                                     <div className="flex justify-between items-center mb-2">
                                         <span className="text-lg font-semibold">{unit.name}</span>
                                         <div className="flex space-x-2">
-                                            <span className="bg-green-600 px-2 py-1 rounded">
-                                                Effective: {effectiveAgainst.length}
+                                            <span className="bg-green-600 px-2 py-1 rounded text-xs">
+                                                Counters: {countersEnemyCount}
                                             </span>
-                                            <span className="bg-red-600 px-2 py-1 rounded">
-                                                Counters: {counteredUnits.length}
+                                            <span className="bg-red-600 px-2 py-1 rounded text-xs">
+                                                Countered by: {counteredByCount}
                                             </span>
                                         </div>
                                     </div>
                                     <div className="text-sm">
                                         <p className="mb-1">
-                                            <span className="font-medium text-green-400">Effective against: </span>
-                                            {effectiveAgainst.length > 0
-                                                ? effectiveAgainst.join(', ')
-                                                : 'None of the selected units'}
+                                            <span className="font-medium text-green-400">Counters: </span>
+                                            {data.countersEnemy.length > 0
+                                                ? data.countersEnemy
+                                                      .map(({ name, count }) => `${name} (${count})`)
+                                                      .join(', ')
+                                                : 'None'}
                                         </p>
                                         <p>
-                                            <span className="font-medium text-red-400">Counters: </span>
-                                            {counteredUnits.length > 0
-                                                ? counteredUnits.join(', ')
-                                                : 'None of the selected units'}
+                                            <span className="font-medium text-red-400">Countered by: </span>
+                                            {data.counteredByEnemy.length > 0
+                                                ? data.counteredByEnemy
+                                                      .map(({ name, count }) => `${name} (${count})`)
+                                                      .join(', ')
+                                                : 'None'}
                                         </p>
                                     </div>
                                 </li>
