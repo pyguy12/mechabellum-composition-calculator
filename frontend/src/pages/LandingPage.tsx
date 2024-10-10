@@ -8,34 +8,36 @@ const LandingPage: React.FC = () => {
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-900 via-blue-900 to-gray-900 text-white overflow-hidden">
             <header className="relative z-10 bg-opacity-50 bg-gray-800 backdrop-filter backdrop-blur-lg">
-                <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-                    <motion.h1
-                        className="text-2xl sm:text-3xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500"
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        Mechabellum Assistant
-                    </motion.h1>
-                    <div className="flex items-center space-x-4">
-                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                            <Link
-                                to="/app"
-                                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base"
-                            >
-                                Launch App
-                            </Link>
-                        </motion.div>
-                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                            <a
-                                href="https://buymeacoffee.com/pyguy12"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-400 hover:text-blue-300 transition duration-300"
-                            >
-                                Buy me a coffee ☕
-                            </a>
-                        </motion.div>
+                <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+                    <div className="flex flex-col sm:flex-row justify-between items-center">
+                        <motion.h1
+                            className="text-2xl sm:text-3xl md:text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 mb-4 sm:mb-0"
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            Mechabellum Assistant
+                        </motion.h1>
+                        <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                <Link
+                                    to="/app"
+                                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base w-full sm:w-auto text-center"
+                                >
+                                    Launch App
+                                </Link>
+                            </motion.div>
+                            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                <a
+                                    href="https://buymeacoffee.com/pyguy12"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-400 hover:text-blue-300 transition duration-300 text-sm sm:text-base"
+                                >
+                                    Buy me a coffee ☕
+                                </a>
+                            </motion.div>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -136,6 +138,7 @@ const LandingPage: React.FC = () => {
             <footer className="relative z-10 bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg">
                 <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
                     <p className="text-gray-400">© 2024 Mechabellum Assistant. All rights reserved.</p>
+                    <p className="text-gray-400">Contact me by emailing mechabellum.assistant@gmail.com</p>
                     <p className="text-gray-400 mt-2">
                         Unit information sourced from{' '}
                         <a
