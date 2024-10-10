@@ -1,4 +1,4 @@
-// src/store/unitsSlice.ts
+// src/redux/store/unitsSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Unit } from '../../types';
 import unitsData from '../../data/units.json';
