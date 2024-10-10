@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Shield, Zap, Target, Info } from 'lucide-react';
+import SupportInfo from '../components/SupportInfo';
 
 const LandingPage: React.FC = () => {
     return (
@@ -16,17 +17,28 @@ const LandingPage: React.FC = () => {
                     >
                         Mechabellum Assistant
                     </motion.h1>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                        <Link
-                            to="/app"
-                            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base"
-                        >
-                            Launch App
-                        </Link>
-                    </motion.div>
+                    <div className="flex items-center space-x-4">
+                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                            <Link
+                                to="/app"
+                                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base"
+                            >
+                                Launch App
+                            </Link>
+                        </motion.div>
+                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                            <a
+                                href="https://buymeacoffee.com/pyguy12"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-400 hover:text-blue-300 transition duration-300"
+                            >
+                                Buy me a coffee ☕
+                            </a>
+                        </motion.div>
+                    </div>
                 </div>
             </header>
-
             <main className="relative z-10">
                 <section className="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8">
                     <div className="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
@@ -110,50 +122,14 @@ const LandingPage: React.FC = () => {
                     </div>
                 </section>
 
-                {/* New How It Works section */}
-                <section className="bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg py-20">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <motion.h2
-                            className="text-4xl font-extrabold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            How It Works
-                        </motion.h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <motion.div
-                                className="bg-gray-700 bg-opacity-50 rounded-lg p-6 backdrop-filter backdrop-blur-lg"
-                                initial={{ opacity: 0, x: -50 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5, delay: 0.2 }}
-                            >
-                                <h3 className="text-2xl font-semibold mb-4 flex items-center">
-                                    <Info className="mr-2 text-blue-400" />
-                                    Select Enemy Units
-                                </h3>
-                                <p className="text-gray-300">
-                                    Choose the units you've observed in your opponent's army. Our app will analyze the
-                                    composition and provide strategic insights.
-                                </p>
-                            </motion.div>
-                            <motion.div
-                                className="bg-gray-700 bg-opacity-50 rounded-lg p-6 backdrop-filter backdrop-blur-lg"
-                                initial={{ opacity: 0, x: 50 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5, delay: 0.4 }}
-                            >
-                                <h3 className="text-2xl font-semibold mb-4 flex items-center">
-                                    <Target className="mr-2 text-red-400" />
-                                    Get Counter Recommendations
-                                </h3>
-                                <p className="text-gray-300">
-                                    Based on the enemy composition, we'll suggest the most effective units to counter
-                                    their strategy, giving you a tactical advantage.
-                                </p>
-                            </motion.div>
-                        </div>
-                    </div>
+                <section className="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <SupportInfo />
+                    </motion.div>
                 </section>
             </main>
 
@@ -161,7 +137,7 @@ const LandingPage: React.FC = () => {
                 <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
                     <p className="text-gray-400">© 2024 Mechabellum Assistant. All rights reserved.</p>
                     <p className="text-gray-400 mt-2">
-                        Counter information sourced from{' '}
+                        Unit information sourced from{' '}
                         <a
                             href="https://mechamonarch.com"
                             target="_blank"
