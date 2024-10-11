@@ -109,43 +109,51 @@ const CounterList: React.FC = () => {
                                     <div className="text-sm">
                                         <p className="mb-1">
                                             <span className="font-medium text-green-400">Counters: </span>
-                                            <div className="flex flex-wrap gap-2 mt-1">
-                                                {data.countersEnemy.map(({ name, count, image }) => (
-                                                    <div
-                                                        key={name}
-                                                        className="flex items-center bg-gray-700 rounded-full px-2 py-1"
-                                                    >
-                                                        <img
-                                                            src={`/images/units/${image}`}
-                                                            alt={name}
-                                                            className="w-6 h-6 object-cover rounded-full mr-1"
-                                                        />
-                                                        <span>
-                                                            {name} ({count})
-                                                        </span>
-                                                    </div>
-                                                ))}
-                                            </div>
+                                            {data.countersEnemy.length > 0 ? (
+                                                <div className="flex flex-wrap gap-2 mt-1">
+                                                    {data.countersEnemy.map(({ name, count, image }) => (
+                                                        <div
+                                                            key={name}
+                                                            className="flex items-center bg-gray-700 rounded-full px-2 py-1"
+                                                        >
+                                                            <img
+                                                                src={`/images/units/${image}`}
+                                                                alt={name}
+                                                                className="w-6 h-6 object-cover rounded-full mr-1"
+                                                            />
+                                                            <span>
+                                                                {name} ({count})
+                                                            </span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            ) : (
+                                                <span className="text-gray-400">None</span>
+                                            )}
                                         </p>
                                         <p>
                                             <span className="font-medium text-red-400">Countered by: </span>
-                                            <div className="flex flex-wrap gap-2 mt-1">
-                                                {data.counteredByEnemy.map(({ name, count, image }) => (
-                                                    <div
-                                                        key={name}
-                                                        className="flex items-center bg-gray-700 rounded-full px-2 py-1"
-                                                    >
-                                                        <img
-                                                            src={`/images/units/${image}`}
-                                                            alt={name}
-                                                            className="w-6 h-6 object-cover rounded-full mr-1"
-                                                        />
-                                                        <span>
-                                                            {name} ({count})
-                                                        </span>
-                                                    </div>
-                                                ))}
-                                            </div>
+                                            {data.counteredByEnemy.length > 0 ? (
+                                                <div className="flex flex-wrap gap-2 mt-1">
+                                                    {data.counteredByEnemy.map(({ name, count, image }) => (
+                                                        <div
+                                                            key={name}
+                                                            className="flex items-center bg-gray-700 rounded-full px-2 py-1"
+                                                        >
+                                                            <img
+                                                                src={`/images/units/${image}`}
+                                                                alt={name}
+                                                                className="w-6 h-6 object-cover rounded-full mr-1"
+                                                            />
+                                                            <span>
+                                                                {name} ({count})
+                                                            </span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            ) : (
+                                                <span className="text-gray-400">None</span>
+                                            )}
                                         </p>
                                     </div>
                                 </li>
