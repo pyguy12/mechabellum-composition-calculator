@@ -150,6 +150,14 @@ const LandingPage: React.FC = () => {
                             Mechamonarch.com
                         </a>
                     </p>
+                    <p className="text-gray-400 mt-2">
+                        <Link
+                            to="/privacy-policy"
+                            className="text-blue-400 hover:text-blue-300 transition duration-300"
+                        >
+                            Privacy Policy
+                        </Link>
+                    </p>
                 </div>
             </footer>
         </div>
