@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Header from './components/Header';
 import UnitGrid from './components/UnitGrid';
 import CounterList from './components/CounterList';
@@ -19,7 +18,7 @@ function App() {
             <Header />
             <main className="max-w-screen-2xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row md:space-x-6">
-                    <div className="md:w-2/3 mb-6 md:mb-0">
+                    <div className="md:w-2/3 mb-6 md:mb-0 order-2 md:order-1">
                         <div className="flex justify-between items-center mb-4">
                             <h2 className="text-2xl font-semibold">Select Enemy Units</h2>
                             <ResetButton />
@@ -28,7 +27,7 @@ function App() {
                         <SearchBar />
                         <UnitGrid units={filteredUnits} />
                     </div>
-                    <div className="md:w-1/3">
+                    <div className="md:w-1/3 order-1 md:order-2 mb-6 md:mb-0">
                         <h2 className="text-2xl font-semibold mb-4">Suggested Units</h2>
                         <CounterList />
                     </div>
