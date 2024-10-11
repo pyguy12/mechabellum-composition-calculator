@@ -82,6 +82,7 @@ const CounterList: React.FC = () => {
                             if (!unit) return null;
                             const countersEnemyCount = data.countersEnemy.reduce((sum, { count }) => sum + count, 0);
                             const counteredByCount = data.counteredByEnemy.reduce((sum, { count }) => sum + count, 0);
+                            if (countersEnemyCount === 0) return null;
                             return (
                                 <li key={unitId} className="border-b border-gray-700 pb-4">
                                     <div className="flex justify-between items-center mb-2">
