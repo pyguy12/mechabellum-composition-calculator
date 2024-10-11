@@ -9,6 +9,10 @@ interface UnitGridProps {
     units: Unit[];
 }
 
+interface GroupedUnits {
+    [cost: number]: Unit[];
+}
+
 const UnitGrid: React.FC<UnitGridProps> = ({ units }) => {
     const dispatch = useDispatch();
     const selectedUnits = useSelector((state: RootState) => state.units.selectedUnits);
@@ -23,16 +27,42 @@ const UnitGrid: React.FC<UnitGridProps> = ({ units }) => {
         }
     };
 
+    // Group units by cost
+    const groupedUnits = units.reduce((acc: GroupedUnits, unit) => {
+        if (!acc[unit.cost]) {
+            acc[unit.cost] = [];
+        }
+        acc[unit.cost].push(unit);
+        return acc;
+    }, {});
+
+    // Sort units alphabetically within each cost group
+    Object.keys(groupedUnits).forEach((cost) => {
+        groupedUnits[Number(cost)].sort((a, b) => a.name.localeCompare(b.name));
+    });
+
+    // Sort cost groups
+    const sortedCosts = Object.keys(groupedUnits)
+        .map(Number)
+        .sort((a, b) => a - b);
+
     return (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
-            {units.map((unit) => (
-                <UnitCard
-                    key={unit.id}
-                    unit={unit}
-                    isSelected={selectedUnits.some((u) => u.id === unit.id)}
-                    onClick={() => handleUnitClick(unit.id)}
-                    allUnits={allUnits}
-                />
+        <div>
+            {sortedCosts.map((cost) => (
+                <div key={cost} className="mb-8">
+                    <h3 className="text-xl font-semibold mb-4">Cost: {cost}</h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                        {groupedUnits[cost].map((unit) => (
+                            <UnitCard
+                                key={unit.id}
+                                unit={unit}
+                                isSelected={selectedUnits.some((u) => u.id === unit.id)}
+                                onClick={() => handleUnitClick(unit.id)}
+                                allUnits={allUnits}
+                            />
+                        ))}
+                    </div>
+                </div>
             ))}
         </div>
     );

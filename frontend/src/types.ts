@@ -2,6 +2,7 @@ export interface Unit {
     id: UnitType;
     name: string;
     image: string;
+    cost: number;
     counters?: {
         effectiveAgainst: UnitType[];
         counteredBy: UnitType[];
