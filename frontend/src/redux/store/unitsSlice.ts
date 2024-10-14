@@ -52,8 +52,12 @@ const unitsSlice = createSlice({
             state.selectedUnits = [];
             state.searchQuery = '';
         },
+        clearSearchQuery: (state) => {
+            state.searchQuery = '';
+        },
     },
 });
 
-export const { addUnit, removeUnit, setUnitQuantity, setSearchQuery, resetSelectedUnits } = unitsSlice.actions;
+export const { addUnit, removeUnit, setUnitQuantity, setSearchQuery, resetSelectedUnits, clearSearchQuery } =
+    unitsSlice.actions;
 export default unitsSlice.reducer;

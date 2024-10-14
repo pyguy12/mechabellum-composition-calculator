@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UnitCard from './UnitCard';
-import { addUnit, removeUnit } from '../redux/store/unitsSlice';
+import { addUnit, removeUnit, clearSearchQuery } from '../redux/store/unitsSlice';
 import { RootState } from '../redux/store';
 import { Unit } from '../types';
 
@@ -25,6 +25,7 @@ const UnitGrid: React.FC<UnitGridProps> = ({ units }) => {
         } else {
             dispatch(addUnit(unitId));
         }
+        dispatch(clearSearchQuery());
     };
 
     // Group units by cost
