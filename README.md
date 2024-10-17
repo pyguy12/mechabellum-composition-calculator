@@ -39,8 +39,7 @@ The project follows a modular architecture with key components including:
 - **TypeScript**: Strong typing throughout the project, enhancing code reliability and developer experience.
 - **Responsive Design**: Tailwind CSS used to create a fully responsive layout.
 - **Component Architecture**: Well-structured component hierarchy demonstrating understanding of React best practices.
-- **Performance Optimization**: Implemented memoization and efficient rendering techniques.
-- **Git Version Control**: Consistent commit history with meaningful commit messages (assume this based on project complexity).
+- **Git Version Control**: Consistent commit history with meaningful commit messages.
 
 ## Running the Project
 
