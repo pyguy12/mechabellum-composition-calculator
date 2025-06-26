@@ -1,0 +1,26 @@
+{
+  "name": "mechabellum-scraper",
+  "version": "1.0.0",
+  "description": "Automated scraper for Mechabellum unit counter data",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest",
+    "scrape": "node src/scraper.js",
+    "validate": "node src/validator.js"
+  },
+  "dependencies": {
+    "puppeteer": "^21.0.0",
+    "cheerio": "^1.0.0-rc.12",
+    "node-cron": "^3.0.3",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
