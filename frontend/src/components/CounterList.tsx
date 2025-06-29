@@ -76,11 +76,14 @@ const CounterList: React.FC = () => {
     };
 
     return (
-        <div className="bg-gray-800 p-4 rounded-lg">
-            <h3 className="text-xl font-bold mb-4">Best Units vs. Enemy Army</h3>
+        <div className="bg-gray-800 p-6 rounded-xl shadow-xl">
+            <div className="mb-6">
+                <h3 className="text-xl font-bold mb-2">Counter Recommendations</h3>
+                <p className="text-sm text-gray-400">Units sorted by effectiveness against enemy composition</p>
+            </div>
             {selectedUnits.length > 0 ? (
                 sortedCounters.length > 0 ? (
-                    <ul className="space-y-4">
+                    <ul className="space-y-3">
                         {sortedCounters.map(([unitId, data]) => {
                             const unit = getUnitById(Number(unitId));
                             if (!unit) return null;
@@ -88,74 +91,83 @@ const CounterList: React.FC = () => {
                             const counteredByCount = data.counteredByEnemy.reduce((sum, { count }) => sum + count, 0);
                             if (countersEnemyCount === 0) return null;
                             return (
-                                <li key={unitId} className="border-b border-gray-700 pb-4">
-                                    <div className="flex items-center mb-2">
+                                <li key={unitId} className="bg-gray-700/50 rounded-lg p-4 hover:bg-gray-700/70 transition-colors">
+                                    <div className="flex items-start gap-4">
                                         <img
                                             src={`/images/units/${unit.image}`}
                                             alt={unit.name}
-                                            className="w-12 h-12 object-cover rounded-full mr-4"
+                                            className="w-16 h-16 object-cover rounded-lg flex-shrink-0"
+                                            loading="lazy"
                                         />
                                         <div className="flex-grow">
-                                            <span className="text-lg font-semibold">{unit.name}</span>
-                                            <div className="flex space-x-2 mt-1">
-                                                <span className="bg-green-600 px-2 py-1 rounded text-xs">
-                                                    Counters: {countersEnemyCount}
-                                                </span>
-                                                <span className="bg-red-600 px-2 py-1 rounded text-xs">
-                                                    Countered by: {counteredByCount}
-                                                </span>
+                                            <div className="flex items-center justify-between mb-2">
+                                                <h4 className="text-lg font-semibold">{unit.name}</h4>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="flex items-center gap-1 text-green-400">
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                        <span className="font-bold">{countersEnemyCount}</span>
+                                                    </span>
+                                                    {counteredByCount > 0 && (
+                                                        <span className="flex items-center gap-1 text-red-400">
+                                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                            </svg>
+                                                            <span className="font-bold">{counteredByCount}</span>
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div className="text-sm">
-                                        <p className="mb-1">
-                                            <span className="font-medium text-green-400">Counters: </span>
-                                            {data.countersEnemy.length > 0 ? (
-                                                <div className="flex flex-wrap gap-2 mt-1">
+                                            <div className="space-y-2 text-sm">
+                                                <div>
+                                                    {data.countersEnemy.length > 0 && (
+                                                        <div>
+                                                            <span className="text-xs text-gray-400 uppercase tracking-wider">Effective Against</span>
+                                                            <div className="flex flex-wrap gap-2 mt-1">
                                                     {data.countersEnemy.map(({ name, count, image }) => (
                                                         <div
                                                             key={name}
-                                                            className="flex items-center bg-gray-700 rounded-full px-2 py-1"
+                                                            className="flex items-center bg-gray-800 rounded-full px-2 py-1 text-xs"
                                                         >
                                                             <img
                                                                 src={`/images/units/${image}`}
                                                                 alt={name}
-                                                                className="w-6 h-6 object-cover rounded-full mr-1"
+                                                                className="w-5 h-5 object-cover rounded-full mr-1"
                                                             />
                                                             <span>
                                                                 {name} ({count})
                                                             </span>
                                                         </div>
                                                     ))}
-                                                </div>
-                                            ) : (
-                                                <span className="text-gray-400">None</span>
-                                            )}
-                                        </p>
-                                        <p>
-                                            <span className="font-medium text-red-400">Countered by: </span>
-                                            {data.counteredByEnemy.length > 0 ? (
-                                                <div className="flex flex-wrap gap-2 mt-1">
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    {data.counteredByEnemy.length > 0 && (
+                                                        <div>
+                                                            <span className="text-xs text-gray-400 uppercase tracking-wider">Vulnerable To</span>
+                                                            <div className="flex flex-wrap gap-2 mt-1">
                                                     {data.counteredByEnemy.map(({ name, count, image }) => (
                                                         <div
                                                             key={name}
-                                                            className="flex items-center bg-gray-700 rounded-full px-2 py-1"
+                                                            className="flex items-center bg-gray-800 rounded-full px-2 py-1 text-xs"
                                                         >
                                                             <img
                                                                 src={`/images/units/${image}`}
                                                                 alt={name}
-                                                                className="w-6 h-6 object-cover rounded-full mr-1"
+                                                                className="w-5 h-5 object-cover rounded-full mr-1"
                                                             />
                                                             <span>
                                                                 {name} ({count})
                                                             </span>
                                                         </div>
                                                     ))}
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                 </div>
-                                            ) : (
-                                                <span className="text-gray-400">None</span>
-                                            )}
-                                        </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </li>
                             );

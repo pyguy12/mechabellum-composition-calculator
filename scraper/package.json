@@ -8,7 +8,9 @@
     "start": "node src/index.js",
     "test": "jest",
     "scrape": "node src/scraper.js",
-    "validate": "node src/validator.js"
+    "validate": "node src/validator.js",
+    "debug": "node src/debug.js",
+    "scrape:debug": "DEBUG=true node src/scraper.js"
   },
   "dependencies": {
     "puppeteer": "^21.0.0",

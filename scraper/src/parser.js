@@ -6,31 +6,41 @@ export async function parseCounterData(htmlContent) {
   const counterData = {};
 
   try {
-    // First, try to find tables or structured lists containing counter information
-    // The site might use different formats, so we'll try multiple approaches
+    console.log('Starting to parse counter data...');
     
-    // Approach 1: Look for tables with counter information
-    const tables = $('table').toArray();
+    // Primary approach: Parse image-based unit sections
+    parseImageBasedSections($, counterData);
     
-    for (const table of tables) {
-      const tableText = $(table).text().toLowerCase();
+    // Fallback approaches if primary fails
+    if (Object.keys(counterData).length === 0) {
+      console.log('Primary parsing failed, trying table approach...');
+      // Approach 2: Look for tables with counter information
+      const tables = $('table').toArray();
       
-      // Check if this table contains counter information
-      if (tableText.includes('counter') || tableText.includes('effective') || tableText.includes('weak')) {
-        parseCounterTable($, table, counterData);
+      for (const table of tables) {
+        const tableText = $(table).text().toLowerCase();
+        
+        // Check if this table contains counter information
+        if (tableText.includes('counter') || tableText.includes('effective') || tableText.includes('weak')) {
+          parseCounterTable($, table, counterData);
+        }
       }
     }
 
-    // Approach 2: Look for structured lists or sections
+    // Approach 3: Look for structured lists or sections
     if (Object.keys(counterData).length === 0) {
+      console.log('Table parsing failed, trying sections approach...');
       parseCounterSections($, counterData);
     }
 
-    // Approach 3: Look for unit-specific sections
+    // Approach 4: Look for unit-specific sections
     if (Object.keys(counterData).length === 0) {
+      console.log('Sections parsing failed, trying unit-specific approach...');
       parseUnitSections($, counterData);
     }
 
+    console.log(`Parsed data for ${Object.keys(counterData).length} units`);
+    
     // Convert unit names to IDs
     const normalizedData = normalizeCounterData(counterData);
     
@@ -39,6 +49,111 @@ export async function parseCounterData(htmlContent) {
   } catch (error) {
     console.error('Error parsing counter data:', error);
     throw new Error(`Failed to parse counter data: ${error.message}`);
+  }
+}
+
+function parseImageBasedSections($, counterData) {
+  // Look for sections with "How to play" headers
+  const unitSections = [];
+  
+  // Find all h2 headers that contain "How to play"
+  $('h2').each((i, elem) => {
+    const headerText = $(elem).text();
+    if (headerText.includes('How to play')) {
+      const unitName = headerText.replace('How to play', '').trim().toLowerCase();
+      
+      // Find the content after this header until the next h2
+      let currentElem = $(elem).next();
+      const sectionContent = {
+        unitName: unitName,
+        usedAgainst: [],
+        counteredBy: []
+      };
+      
+      let currentSection = null;
+      
+      while (currentElem.length > 0 && !currentElem.is('h2')) {
+        // Check for "Used against" or "Countered by" headers
+        if (currentElem.is('h3, h4, strong')) {
+          const sectionText = currentElem.text().toLowerCase();
+          if (sectionText.includes('used against') || sectionText.includes('effective against')) {
+            currentSection = 'usedAgainst';
+          } else if (sectionText.includes('countered by') || sectionText.includes('weak against')) {
+            currentSection = 'counteredBy';
+          }
+        }
+        
+        // Look for unit images with alt text
+        if (currentSection) {
+          currentElem.find('img').each((j, img) => {
+            const altText = $(img).attr('alt');
+            if (altText) {
+              const counters = altText.toLowerCase().split(/[,;\/\s]+/)
+                .map(name => name.trim())
+                .filter(name => name && UNIT_NAME_MAPPING[name]);
+              
+              sectionContent[currentSection].push(...counters);
+            }
+          });
+          
+          // Also check for text content that might list units
+          const text = currentElem.text();
+          if (text) {
+            Object.keys(UNIT_NAME_MAPPING).forEach(unit => {
+              if (text.toLowerCase().includes(unit) && currentSection) {
+                if (!sectionContent[currentSection].includes(unit)) {
+                  sectionContent[currentSection].push(unit);
+                }
+              }
+            });
+          }
+        }
+        
+        currentElem = currentElem.next();
+      }
+      
+      // Add to counterData if we found any counters
+      if (sectionContent.usedAgainst.length > 0 || sectionContent.counteredBy.length > 0) {
+        counterData[sectionContent.unitName] = {
+          effectiveAgainst: [...new Set(sectionContent.usedAgainst)],
+          counteredBy: [...new Set(sectionContent.counteredBy)]
+        };
+      }
+    }
+  });
+  
+  // Alternative: Look for unit images and their surrounding context
+  if (Object.keys(counterData).length === 0) {
+    console.log('Trying alternative image-based parsing...');
+    
+    // Find all images with unit names in alt text
+    $('img').each((i, img) => {
+      const altText = $(img).attr('alt');
+      if (altText) {
+        const unitName = altText.toLowerCase().trim();
+        if (UNIT_NAME_MAPPING[unitName]) {
+          // Look for nearby text that indicates counter relationships
+          const parent = $(img).parent();
+          const grandParent = parent.parent();
+          const contextText = grandParent.text().toLowerCase();
+          
+          // Check if this is in a "used against" or "countered by" section
+          if (contextText.includes('used against') || contextText.includes('effective against')) {
+            // Find the main unit this section is about
+            const mainUnitMatch = contextText.match(/how to play\s+(\w+)/);
+            if (mainUnitMatch) {
+              const mainUnit = mainUnitMatch[1].toLowerCase();
+              if (!counterData[mainUnit]) {
+                counterData[mainUnit] = { effectiveAgainst: [], counteredBy: [] };
+              }
+              if (!counterData[mainUnit].effectiveAgainst.includes(unitName)) {
+                counterData[mainUnit].effectiveAgainst.push(unitName);
+              }
+            }
+          }
+        }
+      }
+    });
   }
 }
 

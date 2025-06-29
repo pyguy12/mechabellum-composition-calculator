@@ -32,6 +32,7 @@ class MechabellumScraper {
 
   async scrapeCounterData() {
     let attempts = 0;
+    const debugMode = process.env.DEBUG === 'true';
     
     while (attempts < SCRAPER_CONFIG.retryAttempts) {
       try {
@@ -43,17 +44,46 @@ class MechabellumScraper {
           timeout: SCRAPER_CONFIG.timeout
         });
 
-        // Wait for content to load
-        await this.page.waitForSelector('.entry-content', { timeout: 10000 });
+        // Save screenshot for debugging
+        if (debugMode || attempts > 0) {
+          const screenshotPath = path.join(process.cwd(), 'debug', `screenshot-attempt-${attempts + 1}.png`);
+          await fs.mkdir(path.dirname(screenshotPath), { recursive: true });
+          await this.page.screenshot({ path: screenshotPath, fullPage: true });
+          console.log(`Screenshot saved: ${screenshotPath}`);
+        }
 
-        // Extract the page content
+        // Wait for page to be ready - use a more flexible selector
+        try {
+          await this.page.waitForSelector('h2, h3, img', { timeout: 10000 });
+        } catch (waitError) {
+          console.log('Basic selectors not found, continuing anyway...');
+        }
+
+        // Add a small delay to ensure all content is loaded
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        // Extract the entire page content since there's no specific container
         const pageContent = await this.page.evaluate(() => {
-          const content = document.querySelector('.entry-content');
-          return content ? content.innerHTML : null;
+          // Try multiple possible containers
+          const body = document.body;
+          const main = document.querySelector('main');
+          const article = document.querySelector('article');
+          const content = document.querySelector('.content, .post-content, .page-content, #content, .site-content, .main-content');
+          
+          // Return the most specific container found, or body as fallback
+          const container = content || article || main || body;
+          return container ? container.innerHTML : null;
         });
 
         if (!pageContent) {
           throw new Error('No content found on the page');
+        }
+
+        // Save HTML content for debugging
+        if (debugMode || attempts > 0) {
+          const htmlPath = path.join(process.cwd(), 'debug', `page-content-attempt-${attempts + 1}.html`);
+          await fs.writeFile(htmlPath, pageContent);
+          console.log(`HTML content saved: ${htmlPath}`);
         }
 
         // Parse the counter data

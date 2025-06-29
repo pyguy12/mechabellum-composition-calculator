@@ -3,7 +3,8 @@
     "allow": [
       "Bash(find:*)",
       "WebFetch(domain:mechamonarch.com)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(npm start)"
     ],
     "deny": []
   }
