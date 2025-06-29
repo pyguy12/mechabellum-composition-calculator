@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Shield, Zap, Target, Info } from 'lucide-react';
+import { Shield, Zap, Target, Info, Clock } from 'lucide-react';
 import SupportInfo from '../components/SupportInfo';
 
 const LandingPage: React.FC = () => {
@@ -124,6 +124,63 @@ const LandingPage: React.FC = () => {
                     </div>
                 </section>
 
+                <section className="max-w-7xl mx-auto py-10 md:py-20 px-4 sm:px-6 lg:px-8">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <h2 className="h-10 md:h-12 text-3xl md:text-4xl font-extrabold text-center mb-8 md:mb-12 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">
+                            Changelog
+                        </h2>
+                        <div className="max-w-7xl">
+                            <div className="space-y-6">
+                                <div className="relative">
+                                    <div className="relative flex items-start">
+                                        {/* Content card - adjusted spacing and padding for mobile */}
+                                        <div className="ml-4 sm:ml-6 flex-1 bg-gray-800 bg-opacity-70 backdrop-filter backdrop-blur-lg rounded-lg p-4 sm:p-6 shadow-xl border border-gray-700 hover:border-green-400 transition-all duration-300">
+                                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4">
+                                                <div>
+                                                    <span className="inline-flex items-center px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium bg-green-500 bg-opacity-20 text-green-400 border border-green-400 border-opacity-30">
+                                                        v1.1.0
+                                                    </span>
+                                                    <h3 className="text-xl sm:text-2xl font-bold text-white mt-2">
+                                                        Feature Update
+                                                    </h3>
+                                                </div>
+                                                <time className="text-xs sm:text-sm text-gray-400 mt-2 sm:mt-0">
+                                                    July 2025
+                                                </time>
+                                            </div>
+
+                                            <div className="space-y-3">
+                                                <div className="flex items-start space-x-2 sm:space-x-3">
+                                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-400 mt-1.5 sm:mt-2 flex-shrink-0"></div>
+                                                    <p className="text-sm sm:text-base text-gray-300">
+                                                        Added counter tooltips to units for better understanding of unit
+                                                        relationships and strategies
+                                                    </p>
+                                                </div>
+                                                <div className="flex items-start space-x-2 sm:space-x-3">
+                                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-400 mt-1.5 sm:mt-2 flex-shrink-0"></div>
+                                                    <p className="text-sm sm:text-base text-gray-300">
+                                                        Expanded counter database with new units:{' '}
+                                                        <span className="text-blue-400 font-semibold">Void Eye</span>,{' '}
+                                                        <span className="text-blue-400 font-semibold">Raiden</span>,{' '}
+                                                        <span className="text-blue-400 font-semibold">Phantom Ray</span>
+                                                        , <span className="text-blue-400 font-semibold">Hound</span>,
+                                                        and <span className="text-blue-400 font-semibold">Abyss</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+                </section>
+
                 <section className="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -137,7 +194,7 @@ const LandingPage: React.FC = () => {
 
             <footer className="relative z-10 bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg">
                 <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
-                    <p className="text-gray-400">© 2024 Mechabellum Assistant. All rights reserved.</p>
+                    <p className="text-gray-400">© 2025 Mechabellum Assistant. All rights reserved.</p>
                     <p className="text-gray-400">Contact me by emailing mechabellum.assistant@gmail.com</p>
                     <p className="text-gray-400 mt-2">
                         Unit information sourced from{' '}
