@@ -135,6 +135,50 @@ const LandingPage: React.FC = () => {
                         </h2>
                         <div className="max-w-7xl">
                             <div className="space-y-6">
+                                {/* v1.1.1 Update */}
+                                <div className="relative">
+                                    <div className="relative flex items-start">
+                                        <div className="ml-4 sm:ml-6 flex-1 bg-gray-800 bg-opacity-70 backdrop-filter backdrop-blur-lg rounded-lg p-4 sm:p-6 shadow-xl border border-gray-700 hover:border-blue-400 transition-all duration-300">
+                                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4">
+                                                <div>
+                                                    <span className="inline-flex items-center px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium bg-blue-500 bg-opacity-20 text-blue-400 border border-blue-400 border-opacity-30">
+                                                        v1.1.1
+                                                    </span>
+                                                    <h3 className="text-xl sm:text-2xl font-bold text-white mt-2">
+                                                        Mobile & UI Improvements
+                                                    </h3>
+                                                </div>
+                                                <time className="text-xs sm:text-sm text-gray-400 mt-2 sm:mt-0">
+                                                    July 2025
+                                                </time>
+                                            </div>
+
+                                            <div className="space-y-3">
+                                                <div className="flex items-start space-x-2 sm:space-x-3">
+                                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-400 mt-1.5 sm:mt-2 flex-shrink-0"></div>
+                                                    <p className="text-sm sm:text-base text-gray-300">
+                                                        Disabled tooltips on mobile devices for improved touch
+                                                        experience
+                                                    </p>
+                                                </div>
+                                                <div className="flex items-start space-x-2 sm:space-x-3">
+                                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-400 mt-1.5 sm:mt-2 flex-shrink-0"></div>
+                                                    <p className="text-sm sm:text-base text-gray-300">
+                                                        Reduced unit card size by 50% for better visibility and layout
+                                                    </p>
+                                                </div>
+                                                <div className="flex items-start space-x-2 sm:space-x-3">
+                                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-400 mt-1.5 sm:mt-2 flex-shrink-0"></div>
+                                                    <p className="text-sm sm:text-base text-gray-300">
+                                                        Enhanced mobile responsiveness with adaptive grid layouts (3-8
+                                                        columns based on screen size)
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div className="relative">
                                     <div className="relative flex items-start">
                                         {/* Content card - adjusted spacing and padding for mobile */}

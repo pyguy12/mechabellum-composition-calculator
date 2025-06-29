@@ -43,11 +43,11 @@ const UnitGrid: React.FC<UnitGridProps> = ({ units }) => {
         switch (e.key) {
             case 'ArrowUp':
                 e.preventDefault();
-                targetIndex = Math.max(0, currentIndex - 5); // Move up one row (assuming 5 columns)
+                targetIndex = Math.max(0, currentIndex - 8); // Move up one row (assuming 8 columns on desktop)
                 break;
             case 'ArrowDown':
                 e.preventDefault();
-                targetIndex = Math.min(allUnitElements.length - 1, currentIndex + 5);
+                targetIndex = Math.min(allUnitElements.length - 1, currentIndex + 8);
                 break;
             case 'ArrowLeft':
                 e.preventDefault();
@@ -99,7 +99,7 @@ const UnitGrid: React.FC<UnitGridProps> = ({ units }) => {
                 <div key={cost} className="mb-10">
                     <h3 className="text-xl font-semibold mb-4" id={`cost-group-${cost}`}>Cost: {cost}</h3>
                     <div 
-                        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+                        className="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-3 md:gap-4"
                         role="group"
                         aria-labelledby={`cost-group-${cost}`}
                     >
